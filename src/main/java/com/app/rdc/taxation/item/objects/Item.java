@@ -1,6 +1,5 @@
 package com.app.rdc.taxation.item.objects;
 
-
 public interface Item {
     public String getName();
     public void setName(String name);

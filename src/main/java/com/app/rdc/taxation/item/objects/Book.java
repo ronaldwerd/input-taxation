@@ -8,7 +8,6 @@ import lombok.Setter;
 public class Book implements Item {
     private String name;
     private double price;
-
     private boolean imported;
 
     public double getTax() {

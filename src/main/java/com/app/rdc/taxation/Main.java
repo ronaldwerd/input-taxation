@@ -1,7 +1,8 @@
 package com.app.rdc.taxation;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
+import com.app.rdc.taxation.input.InputEvaluator;
+import com.app.rdc.taxation.input.InputException;
+
 import java.util.Scanner;
 
 public class Main {
@@ -10,11 +11,21 @@ public class Main {
 
         Scanner userInput = new Scanner(System.in);
 
-        while(1 == 1) {
+        try {
+            //InputEvaluator.parseInputString("65|35");
+            //InputEvaluator.parseInputString("65|Ronald");
+            //InputEvaluator.parseInputString("65 Ronald Partridge");
+            InputEvaluator.parseInputString("65 Imported beer at 1036.95");
+        } catch(InputException e) {
 
-            String input = userInput.nextLine().trim();
-
-            System.out.println("you said: " + input);
         }
     }
 }
+
+
+/*
+    1 imported bottle of perfume at 27.99
+    1 bottle of perfume at 18.99
+    1 packet of headache pills at 9.75
+    1 box of imported chocolates at 11.25
+*/
