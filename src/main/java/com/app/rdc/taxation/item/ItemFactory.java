@@ -5,15 +5,15 @@ import com.app.rdc.taxation.item.objects.*;
 
 public class ItemFactory {
 
-    public static Item generateItem(String name, String type, double price) {
+    private static final String medicalWords[] = {"pill"};
+    private static final String foodWords[] = {"chocolate"};
+    private static final String bookWords[] = {"book"};
+
+    public static Item generateItem(String name, double price) {
 
         Item item;
 
         /*
-         * If we have more granular requirements for specific attributes and items later, we can use this factory
-         * pattern to create these.
-         */
-
         switch(type) {
 
             case "medical":
@@ -31,7 +31,9 @@ public class ItemFactory {
                 item = new Generic();
                 break;
         }
+        */
 
+        item = new Generic();
         item.setName(name);
         item.setPrice(price);
 

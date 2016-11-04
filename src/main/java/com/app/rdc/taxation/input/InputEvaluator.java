@@ -5,7 +5,7 @@ import java.util.regex.Pattern;
 
 public class InputEvaluator {
 
-    private final static Pattern quantityPattern = Pattern.compile("(^[0-9]*)\\s([a-z\\s]*)at\\s([0-9]*\\.[0-9]{2})", Pattern.CASE_INSENSITIVE); // (^[0-9])
+    private final static Pattern quantityPattern = Pattern.compile("(^[0-9]*)\\s([a-z\\s]*)at\\s([0-9]*\\.[0-9]{2})", Pattern.CASE_INSENSITIVE);
     private final static String BAD_FORMAT = "Invalid order line format.";
 
     private InputEvaluator() {}
