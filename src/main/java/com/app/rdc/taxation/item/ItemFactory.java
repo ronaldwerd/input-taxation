@@ -82,7 +82,6 @@ public class ItemFactory {
             String lexicalName = getLexicalWordCategory(s);
 
             if(lexicalName != null) {
-                System.out.println(s + " --> " + lexicalName);
 
                 if(lexicalName.startsWith("noun")) {
                     String[] details = lexicalName.split("\\.");

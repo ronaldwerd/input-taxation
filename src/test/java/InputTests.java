@@ -1,24 +1,5 @@
-import org.junit.Test;
-
+/**
+ * Created by Ronald on 11/6/2016.
+ */
 public class InputTests {
-
-    @Test
-    public void genericItemTest() {
-
-    }
-
-    @Test
-    public void bookItemTest() {
-
-    }
-
-    @Test
-    public void foodItemTest() {
-
-    }
-
-    @Test
-    public void medicalItemTest() {
-
-    }
 }

@@ -15,6 +15,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Scanner;
 
 public class Application {
 
@@ -28,7 +29,6 @@ public class Application {
         return application;
     }
 
-    private final static String WORDNET_LOCATION = File.separator + "resources" + File.separator + "wordnet" + File.separator + "dict";
     private final static char CURSOR = '>';
 
     private final static String WELCOME = "Welcome sales taxes calculator.";
@@ -48,49 +48,14 @@ public class Application {
     private ItemFactory itemFactory;
     private Order order;
 
-    private IDictionary loadDictionary() throws IOException {
-        Path currentRelativePath = Paths.get("");
-        String wordNetUrl = currentRelativePath.toAbsolutePath().toString() + WORDNET_LOCATION;
-
-        URL url;
-        url = new URL("file", null, wordNetUrl);
-
-        IDictionary dictionary = new Dictionary(url);
-
-        if(dictionary.open() == false)
-            throw new IOException("Unable to open wordnet dictionary, check resource installation");
-
-        return dictionary;
-    }
 
     private Application() throws Exception {
-        itemFactory = new ItemFactory(loadDictionary());
+        itemFactory = new ItemFactory(Dependencies.loadDictionary());
         order = new Order();
     }
 
     public void run() {
 
-        try {
-
-            String[] orderLines = {
-                    "1 imported bottle of perfume at 47.50",
-                    "1 bottle of ketchup Heinz at 4.95",
-                    "7 lemons at 2.37",
-                    "31 cans of coca cola at 0.79",
-                    "2 books of lore at 9.95"
-            };
-
-            for(String s: orderLines) {
-                InputResult result = InputEvaluator.parseInputString(s);
-                Item item = itemFactory.generateItem(result.getName(), result.getPrice());
-                String foo = "1";
-            }
-
-        } catch (InputException | ItemFactoryException e) {
-            e.printStackTrace();
-        }
-
-        /*
         System.out.println(WELCOME);
         System.out.println("\n");
         System.out.println(HELP);
@@ -123,7 +88,7 @@ public class Application {
                         InputResult result = InputEvaluator.parseInputString(input);
                         itemFactory.generateItem(result.getName(), result.getPrice());
 
-                    } catch (InputException e) {
+                    } catch (InputException | ItemFactoryException e) {
                         System.out.println(INPUT_ERROR);
                     }
 
@@ -132,6 +97,5 @@ public class Application {
 
             System.out.print("\n" + CURSOR + " ");
         }
-        */
     }
 }
