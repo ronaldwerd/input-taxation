@@ -15,7 +15,8 @@ public class Book implements Item {
         if(imported == false)
             return 0f;
 
-        return price * Taxation.IMPORT_TAX;
+        float f = (float)Taxation.roundTaxation(price * Taxation.IMPORT_TAX);
+        return f;
     }
 
     private String wtf;

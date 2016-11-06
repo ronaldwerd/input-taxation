@@ -12,9 +12,14 @@ public class Generic implements Item {
 
     public float getTax() {
 
-        if(imported == false)
-            return price * Taxation.SALES_TAX;
+        float f;
 
-        return price * (Taxation.IMPORT_TAX + Taxation.SALES_TAX);
+        if(imported == false) {
+            f = (float)Taxation.roundTaxation(price * Taxation.SALES_TAX);
+            return f;
+        }
+
+        f = (float)Taxation.roundTaxation(price * (Taxation.IMPORT_TAX + Taxation.SALES_TAX));
+        return f;
     }
 }
