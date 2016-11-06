@@ -32,6 +32,9 @@ public class ItemFactory {
         /*
          * Stemming removes pluralization and converts the noun to its singular form.
          * Many words cannot be stemmed so we use the original word if no stem is found.
+         *
+         * Some words may have multiple lexical categories but since we are only interested in
+         * food or books.
          */
 
         List<String> stemmed = stemmer.findStems(wordStr, POS.NOUN);
@@ -46,9 +49,22 @@ public class ItemFactory {
         if (idxWord == null)
             return null;
 
+        for(int i = 0; i < idxWord.getWordIDs().size(); i++) {
+
+            IWordID wordId = idxWord.getWordIDs().get(i);
+            IWord word = this.dictionary.getWord(wordId);
+
+            if(word.getSenseKey().getLexicalFile().getName().equals("noun.book")) {
+                return word.getSenseKey().getLexicalFile().getName();
+            }
+
+            if(word.getSenseKey().getLexicalFile().getName().equals("noun.food")) {
+                return word.getSenseKey().getLexicalFile().getName();
+            }
+        }
+
         IWordID wordId = idxWord.getWordIDs().get(0);
         IWord word = this.dictionary.getWord(wordId);
-
         return word.getSenseKey().getLexicalFile().getName();
     }
 
@@ -101,6 +117,10 @@ public class ItemFactory {
 
         if(item == null)
             item = new Generic();
+
+        if(name.contains("imported")) {
+            item.setImported(true);
+        }
 
         item.setName(name);
         item.setPrice(price);
