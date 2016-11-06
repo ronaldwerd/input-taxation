@@ -1,5 +1,7 @@
 package com.app.rdc.taxation.cart;
 
+import com.app.rdc.taxation.item.objects.Taxation;
+
 import java.util.LinkedList;
 import java.util.List;
 
@@ -33,7 +35,7 @@ public class Order {
      */
 
     public double getTaxes() {
-        return orderLines.stream().mapToDouble(o -> o.getTotalTax()).sum();
+        return Taxation.roundTaxation(orderLines.stream().mapToDouble(o -> o.getTotalTax() * o.getQty()).sum());
     }
 
     /**
@@ -42,6 +44,6 @@ public class Order {
      */
 
     public double getTotal() {
-        return 0f;
+        return Taxation.roundToSecondDecimal(getTaxes() + orderLines.stream().mapToDouble(o -> o.getItem().getPrice() * o.getQty()).sum());
     }
 }

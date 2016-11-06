@@ -17,6 +17,4 @@ public class Book implements Item {
 
         return Taxation.roundTaxation(price * Taxation.IMPORT_TAX);
     }
-
-    private String wtf;
 }

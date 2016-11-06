@@ -10,7 +10,11 @@ public class Taxation {
     static public final double SALES_TAX = 0.1d;
     static public final double IMPORT_TAX = 0.05d;
 
+    static public double roundToSecondDecimal(double d) {
+        return Math.round(d * 100) / 100.0;
+    }
+
     static public double roundTaxation(double d) {
-        return Math.round(d * 20) / 20.0;
+        return roundToSecondDecimal(Math.ceil(d / 0.05d) * 0.05d);
     }
 }

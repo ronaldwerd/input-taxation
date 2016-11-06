@@ -9,13 +9,6 @@ public class OrderTests {
 
     private Order order;
 
-    /*
-        1 imported bottle of perfume at 27.99
-        1 bottle of perfume at 18.99
-        1 packet of headache pills at 9.75
-        1 box of imported chocolates at 11.25
-    */
-
     private Item importedPerfume;
     private Item perfume;
     private Item headachePills;
@@ -31,34 +24,34 @@ public class OrderTests {
         importedPerfume = new Generic();
         importedPerfume.setName("imported bottle of perfume");
         importedPerfume.setImported(true);
-        importedPerfume.setPrice(27.99f);
+        importedPerfume.setPrice(27.99d);
 
         perfume = new Generic();
         perfume.setName("bottle of perfume");
-        perfume.setPrice(18.99f);
+        perfume.setPrice(18.99d);
 
         headachePills = new Medical();
         headachePills.setName("packet of headache pills");
-        headachePills.setPrice(9.75f);
+        headachePills.setPrice(9.75d);
 
         importedChocolates = new Food();
         importedChocolates.setName("box of imported chocolates");
         importedChocolates.setImported(true);
-        importedChocolates.setPrice(11.25f);
+        importedChocolates.setPrice(11.25d);
 
         //
 
         book = new Book();
         book.setName("cooking with bacon book");
-        book.setPrice(14.95f);
+        book.setPrice(14.95d);
 
         food = new Food();
         food.setName("large pepperoni pizza");
-        food.setPrice(12.95f);
+        food.setPrice(12.95d);
 
         computerScreen = new Generic();
         computerScreen.setName("imported 27 inch ips flat panel");
-        computerScreen.setPrice(519.95f);
+        computerScreen.setPrice(519.95d);
 
         order = new Order();
     }
@@ -66,14 +59,15 @@ public class OrderTests {
     @Test
     public void itemTaxation() {
 
-        assert(importedPerfume.getTax() == 4.20f);
-        assert(perfume.getTax() == 1.90f);
-        assert(headachePills.getTax() == 0f);
-        assert(importedChocolates.getTax() == 0.55f);
+
+        assert(importedPerfume.getTax() == 4.20d);
+        assert(perfume.getTax() == 1.90d);
+        assert(headachePills.getTax() == 0d);
+        assert(importedChocolates.getTax() == 0.6d);
         //
-        assert(book.getTax() == 0f);
-        assert(food.getTax() == 0f);
-        assert(computerScreen.getTax() == 52f);
+        assert(book.getTax() == 0d);
+        assert(food.getTax() == 0d);
+        assert(computerScreen.getTax() == 52d);
 
         perfume.setImported(true);
         headachePills.setImported(true);
@@ -82,10 +76,11 @@ public class OrderTests {
         book.setImported(true);
         food.setImported(true);
 
-        assert(perfume.getTax() == 2.85f);
-        assert(headachePills.getTax() == 0.5f);
-        assert(computerScreen.getTax() == 78f);
-        assert(food.getTax() == 0.65f);
+        assert(perfume.getTax() == 2.85d);
+        assert(headachePills.getTax() == 0.5d);
+        assert(computerScreen.getTax() == 78d);
+        assert(food.getTax() == 0.65d);
+
     }
 
     @Test
@@ -97,9 +92,7 @@ public class OrderTests {
         order.add(new OrderLine(1, headachePills));
         order.add(new OrderLine(1, importedChocolates));
 
-        double taxes = order.getTaxes();
-        double total = order.getTotal();
-
-        String foo = "fff";
+        assert(order.getTaxes() == 6.7d);
+        assert(order.getTotal() == 74.68d);
     }
 }
