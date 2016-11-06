@@ -29,23 +29,29 @@ public class ItemFactory {
 
     private String getLexicalWordCategory(String wordStr) throws ItemFactoryException {
 
-        String lexicalWordCategory = null;
+        /*
+         * Stemming removes pluralization and converts the noun to its singular form.
+         * Many words cannot be stemmed so we use the original word if no stem is found.
+         */
 
         List<String> stemmed = stemmer.findStems(wordStr, POS.NOUN);
 
-        for(String s : stemmed) {
-            IIndexWord idxWord = this.dictionary.getIndexWord(wordStr, POS.NOUN);
+        IIndexWord idxWord;
 
-            if (idxWord == null)
-                return null;
+        if(stemmed.size() > 0)
+            idxWord = this.dictionary.getIndexWord(stemmed.get(0), POS.NOUN);
+        else
+            idxWord = this.dictionary.getIndexWord(wordStr, POS.NOUN);
 
-            IWordID wordId = idxWord.getWordIDs().get(0);
-            IWord word = this.dictionary.getWord(wordId);
-        }
+        if (idxWord == null)
+            return null;
 
+        IWordID wordId = idxWord.getWordIDs().get(0);
+        IWord word = this.dictionary.getWord(wordId);
 
         return word.getSenseKey().getLexicalFile().getName();
     }
+
 
     /**
      * generateItem() creates a new Item which can be added to the orders area.
@@ -67,8 +73,6 @@ public class ItemFactory {
      */
 
     public Item generateItem(String name, double price) throws ItemFactoryException {
-
-        getLexicalWordCategory("lemons");
 
         Item item = null;
 

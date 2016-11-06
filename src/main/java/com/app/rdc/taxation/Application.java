@@ -12,11 +12,9 @@ import edu.mit.jwi.IDictionary;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Scanner;
 
 public class Application {
 
@@ -50,7 +48,7 @@ public class Application {
     private ItemFactory itemFactory;
     private Order order;
 
-    private IDictionary loadDictionary() throws Exception {
+    private IDictionary loadDictionary() throws IOException {
         Path currentRelativePath = Paths.get("");
         String wordNetUrl = currentRelativePath.toAbsolutePath().toString() + WORDNET_LOCATION;
 
@@ -60,7 +58,7 @@ public class Application {
         IDictionary dictionary = new Dictionary(url);
 
         if(dictionary.open() == false)
-            throw new Exception("Unable to open wordnet dictionary, check resource installation");
+            throw new IOException("Unable to open wordnet dictionary, check resource installation");
 
         return dictionary;
     }
@@ -78,7 +76,7 @@ public class Application {
                     "1 imported bottle of perfume at 47.50",
                     "1 bottle of ketchup Heinz at 4.95",
                     "7 lemons at 2.37",
-                    "31 cans of coca cola",
+                    "31 cans of coca cola at 0.79",
                     "2 books of lore at 9.95"
             };
 
