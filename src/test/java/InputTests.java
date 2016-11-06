@@ -12,7 +12,8 @@ public class InputTests {
                 " 11 imported bottle of perfume at 27.99 ",
                 " 1 chocolate bar at 0.85",
                 "   677 packet of headache pills at 9.75 ",
-                " 34 box of imported chocolates at 11.25"
+                " 34 box of imported chocolates at 11.25",
+                "1 packet of headache pills at 9.75"
         };
 
         try {
@@ -38,6 +39,11 @@ public class InputTests {
             assert(r.getName().equals("box of imported chocolates"));
             assert(r.getQuantity() == 34);
             assert(r.getPrice() == 11.25f);
+
+            r = InputEvaluator.parseInputString(orderLines[4]);
+            assert(r.getName().equals("packet of headache pills"));
+            assert(r.getQuantity() == 1);
+            assert(r.getPrice() == 9.75f);
 
 
         } catch(Exception ex) {
