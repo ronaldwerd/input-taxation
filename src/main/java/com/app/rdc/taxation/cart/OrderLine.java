@@ -5,10 +5,14 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Getter
-@Setter
 public class OrderLine {
     private int qty;
     private Item item;
+
+    public OrderLine(int qty, Item item) {
+        this.qty = qty;
+        this.item = item;
+    }
 
     /**
      * Calculates the tax of the order line by taking the tax of an item and multiply the quantity

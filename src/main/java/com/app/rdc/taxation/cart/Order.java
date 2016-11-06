@@ -1,9 +1,14 @@
 package com.app.rdc.taxation.cart;
 
+import java.util.LinkedList;
 import java.util.List;
 
 public class Order {
     private List<OrderLine> orderLines;
+
+    public Order() {
+        orderLines = new LinkedList<>();
+    }
 
     /**
      * Removes all of the order lines within the order
