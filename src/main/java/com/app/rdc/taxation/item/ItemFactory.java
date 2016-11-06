@@ -114,7 +114,6 @@ public class ItemFactory {
 
                     if(details[1].equals("food")) {
                         item = new Food();
-
                         // Keep going, we may have a food book
                     }
 

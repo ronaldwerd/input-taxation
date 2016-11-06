@@ -9,6 +9,16 @@ public class InputEvaluator {
 
     private InputEvaluator() {}
 
+    /**
+     * Parse a humanized string input in the following format:
+     * (qty) "string name" at (price)
+     * Examples:
+     * 1 bottle of perfume at 18.99
+     * 3 packets of headache pills at 9.75
+     * 10 steak knifes at 49.95
+     * @param input is the order string
+     */
+
     public static InputResult parseInputString(String input) throws InputException {
 
         InputResult result = new InputResult();
