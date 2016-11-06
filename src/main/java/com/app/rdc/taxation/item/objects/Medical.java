@@ -11,6 +11,10 @@ public class Medical implements Item {
     private boolean imported;
 
     public double getTax() {
-        return 0f;
+
+        if(imported == false)
+            return 0f;
+
+        return price * Taxation.IMPORT_TAX;
     }
 }

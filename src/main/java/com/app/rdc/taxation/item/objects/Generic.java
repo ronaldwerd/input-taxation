@@ -11,6 +11,10 @@ public class Generic implements Item {
     private boolean imported;
 
     public double getTax() {
-        return 0f;
+
+        if(imported == false)
+            return price * Taxation.SALES_TAX;
+
+        return price * (Taxation.IMPORT_TAX + Taxation.SALES_TAX);
     }
 }
