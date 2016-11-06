@@ -1,14 +1,14 @@
 package com.app.rdc.taxation.item.objects;
 
 public interface Item {
-    public String getName();
-    public void setName(String name);
+    String getName();
+    void setName(String name);
 
-    public double getPrice();
-    public void setPrice(double price);
+    double getPrice();
+    void setPrice(double price);
 
-    public boolean isImported();
-    public void setImported(boolean imported);
+    boolean isImported();
+    void setImported(boolean imported);
 
-    public double getTax();
+    double getTax();
 }

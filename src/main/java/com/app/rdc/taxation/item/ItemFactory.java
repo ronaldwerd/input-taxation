@@ -12,9 +12,11 @@ import edu.mit.jwi.item.POS;
 import edu.mit.jwi.morph.SimpleStemmer;
 
 import java.util.List;
+import java.util.regex.Pattern;
 
 public class ItemFactory {
 
+    private static final Pattern lettersAndSpaces = Pattern.compile("[a-z\\s]*", Pattern.CASE_INSENSITIVE);
     private static final String medicalWords[] = {"pills", "medical"};
     private static final String foodWords[] = {"chocolates"};
     private static final String bookWords[] = {"books"};
@@ -84,13 +86,19 @@ public class ItemFactory {
      * Food and Book items are automatically discovered based on the lexical noun category from the
      * wordnet dictionary.
      *
+     * If there are lexical attributes that discover food and book in the same order name, a book will be returned
+     *
      * @param name of the intended item
      * @return the item type based on the name given.
      */
 
     public Item generateItem(String name, double price) throws ItemFactoryException {
 
+        if(lettersAndSpaces.matcher(name).find() == false)
+            throw new ItemFactoryException(ItemFactoryException.BAD_CHARACTERS);
+
         Item item = null;
+        boolean hasNoun = false;
 
         String[] namePieces = name.split("\\s+");
 
@@ -100,11 +108,14 @@ public class ItemFactory {
             if(lexicalName != null) {
 
                 if(lexicalName.startsWith("noun")) {
+
+                    hasNoun = true;
                     String[] details = lexicalName.split("\\.");
 
                     if(details[1].equals("food")) {
                         item = new Food();
-                        break;
+
+                        // Keep going, we may have a food book
                     }
 
                     if(details[1].equals("communication")) {
@@ -114,6 +125,9 @@ public class ItemFactory {
                 }
             }
         }
+
+        if(hasNoun == false)
+            throw new ItemFactoryException(ItemFactoryException.NO_NOUNS);
 
         if(item == null)
             item = new Generic();
