@@ -7,15 +7,14 @@ import lombok.Setter;
 @Setter
 public class Food implements Item {
     private String name;
-    private float price;
+    private double price;
     private boolean imported;
 
-    public float getTax() {
+    public double getTax() {
 
         if(imported == false)
-            return 0f;
+            return 0d;
 
-        float f = (float)Taxation.roundTaxation(price * Taxation.IMPORT_TAX);
-        return f;
+        return Taxation.roundTaxation(price * Taxation.IMPORT_TAX);
     }
 }

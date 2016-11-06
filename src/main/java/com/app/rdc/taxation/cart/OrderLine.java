@@ -18,7 +18,7 @@ public class OrderLine {
      * Calculates the tax of the order line by taking the tax of an item and multiply the quantity
      * @return the total taxation sum
      */
-    public float getTotalTax() {
+    public double getTotalTax() {
         return qty * item.getTax();
     }
 }
