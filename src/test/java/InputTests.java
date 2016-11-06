@@ -1,5 +1,9 @@
-/**
- * Created by Ronald on 11/6/2016.
- */
+import org.junit.Test;
+
 public class InputTests {
+
+    @Test
+    public void inputResult() {
+
+    }
 }
