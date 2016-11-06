@@ -5,14 +5,14 @@ import com.app.rdc.taxation.item.objects.Item;
 import java.util.List;
 
 public class Order {
-    private List<Item> itemList;
+    private List<OrderLine> orderLines;
 
     public void clear() {
 
     }
 
-    public void add(Item i) {
-        itemList.add(i);
+    public void add(OrderLine o) {
+        orderLines.add(o);
     }
 
     public double getTaxes() {

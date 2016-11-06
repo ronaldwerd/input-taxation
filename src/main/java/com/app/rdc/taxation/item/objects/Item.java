@@ -4,11 +4,11 @@ public interface Item {
     String getName();
     void setName(String name);
 
-    double getPrice();
-    void setPrice(double price);
+    float getPrice();
+    void setPrice(float price);
 
     boolean isImported();
     void setImported(boolean imported);
 
-    double getTax();
+    float getTax();
 }

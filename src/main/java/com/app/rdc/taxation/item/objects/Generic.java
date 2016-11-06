@@ -7,10 +7,10 @@ import lombok.Setter;
 @Setter
 public class Generic implements Item {
     private String name;
-    private double price;
+    private float price;
     private boolean imported;
 
-    public double getTax() {
+    public float getTax() {
 
         if(imported == false)
             return price * Taxation.SALES_TAX;

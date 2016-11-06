@@ -92,7 +92,7 @@ public class ItemFactory {
      * @return the item type based on the name given.
      */
 
-    public Item generateItem(String name, double price) throws ItemFactoryException {
+    public Item generateItem(String name, float price) throws ItemFactoryException {
 
         if(lettersAndSpaces.matcher(name).find() == false)
             throw new ItemFactoryException(ItemFactoryException.BAD_CHARACTERS);
