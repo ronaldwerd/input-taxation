@@ -1,9 +1,6 @@
 package com.app.rdc.taxation.item;
 
-import com.app.rdc.taxation.item.objects.Book;
-import com.app.rdc.taxation.item.objects.Food;
-import com.app.rdc.taxation.item.objects.Generic;
-import com.app.rdc.taxation.item.objects.Item;
+import com.app.rdc.taxation.item.objects.*;
 import edu.mit.jwi.IDictionary;
 import edu.mit.jwi.item.IIndexWord;
 import edu.mit.jwi.item.IWord;
@@ -17,7 +14,7 @@ import java.util.regex.Pattern;
 public class ItemFactory {
 
     private static final Pattern lettersAndSpaces = Pattern.compile("[a-z\\s]*", Pattern.CASE_INSENSITIVE);
-    private static final String medicalWords[] = {"pills", "medical"};
+    private static final String medicalWords[] = {"pill", "medical"};
 
     private static final SimpleStemmer stemmer = new SimpleStemmer();
 
@@ -126,7 +123,30 @@ public class ItemFactory {
         if(hasNoun == false)
             throw new ItemFactoryException(ItemFactoryException.NO_NOUNS);
 
-        //TODO: scan for medical words
+        /*
+         * I am sure there is probably a better way to do this in Java 8, I just want to
+         * fully complete the assignment.
+         */
+
+        medicalScan: for(String medicalWord : medicalWords) {
+
+            for(String namePiece : namePieces) {
+
+                List<String> stemmed = stemmer.findStems(namePiece, POS.NOUN);
+
+                if(stemmed.size() > 0) {
+                    if(medicalWord.equals(stemmed.get(0))) {
+                        item = new Medical();
+                        break medicalScan;
+                    }
+                }
+
+                if(medicalWord.equals(namePiece)) {
+                    item = new Medical();
+                    break medicalScan;
+                }
+            }
+        }
 
         if(item == null)
             item = new Generic();

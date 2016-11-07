@@ -1,10 +1,7 @@
 import com.app.rdc.taxation.Dependencies;
 import com.app.rdc.taxation.item.ItemFactory;
 import com.app.rdc.taxation.item.ItemFactoryException;
-import com.app.rdc.taxation.item.objects.Book;
-import com.app.rdc.taxation.item.objects.Food;
-import com.app.rdc.taxation.item.objects.Generic;
-import com.app.rdc.taxation.item.objects.Item;
+import com.app.rdc.taxation.item.objects.*;
 import edu.mit.jwi.IDictionary;
 import org.apache.commons.lang3.ArrayUtils;
 import org.junit.Before;
@@ -83,8 +80,9 @@ public class ItemFactoryTests {
     }
 
     @Test
-    public void medicalItemTest() {
-
+    public void medicalItemTest() throws ItemFactoryException {
+        Item i = itemFactory.generateItem("packet of headache pills", 9.75f);
+        assert(i instanceof Medical);
     }
 
     @Test
