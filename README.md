@@ -24,4 +24,4 @@ which can be properly expanded.
 - Uses wordnet API and english library to ensure nouns are present and both singular and plural nouns are real words.
 - Looks up a nouns lexical file information to determine if the item is a book item or food item.
 - Uses Lambdas and Java8 to assist in creating order summaries.
-- Uses Maven for acquire library dependencies and building.
+- Uses Maven for acquiring library dependencies and building.
