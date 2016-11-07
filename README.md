@@ -18,8 +18,8 @@ I made my own improvisations and business rules and additions which demonstrates
 which can be properly expanded.
 
 ### Command Line interface parser
-#### This is an application which actually runs and accepts commands to add, view and remove your order and contains
-#### Has following features:
+#### This is an application which actually runs and accepts commands to add, view and remove your order
+#### has following features:
 - A functional order entry parser which detects a specific line format
 - Uses wordnet API and english library to ensure nouns are present and both singular and plural nouns are real words.
 - Looks up a nouns lexical file information to determine if the item is a book item or food item.
