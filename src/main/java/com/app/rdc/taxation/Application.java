@@ -1,20 +1,14 @@
 package com.app.rdc.taxation;
 
 import com.app.rdc.taxation.cart.Order;
+import com.app.rdc.taxation.cart.OrderLine;
 import com.app.rdc.taxation.input.InputEvaluator;
 import com.app.rdc.taxation.input.InputException;
 import com.app.rdc.taxation.input.InputResult;
 import com.app.rdc.taxation.item.ItemFactory;
 import com.app.rdc.taxation.item.ItemFactoryException;
 import com.app.rdc.taxation.item.objects.Item;
-import edu.mit.jwi.Dictionary;
-import edu.mit.jwi.IDictionary;
 
-import java.io.File;
-import java.io.IOException;
-import java.net.URL;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Scanner;
 
 public class Application {
@@ -33,11 +27,14 @@ public class Application {
 
     private final static String WELCOME = "Welcome sales taxes calculator.";
     private final static String EXIT = "Good Bye.";
-    private final static String CLEAR = "Order items cleared.";
+    private final static String ORDER_ADD = "Item added successfully";
+    private final static String ORDER_CLEAR = "Order items cleared.";
+    private final static String ORDER_EMPTY = "Your order is empty.";
     private final static String INPUT_ERROR = "Invalid command or order line.";
     private final static String HELP = "Commands are as follows:" +
             "exit:  Quits the application\n" +
             "help:  Prints this help information\n" +
+            "show:  Displays the curremnt order\n" +
             "clear: Clears the current order\n" +
             "\n" +
             "Ordering examples:\n" +
@@ -48,10 +45,32 @@ public class Application {
     private ItemFactory itemFactory;
     private Order order;
 
-
     private Application() throws Exception {
         itemFactory = new ItemFactory(Dependencies.loadDictionary());
         order = new Order();
+    }
+
+    private void renderOrder(Order o) {
+        /*
+        1 book : 12.49
+        1 music CD: 16.49
+        1 chocolate bar: 0.85
+        Sales Taxes: 1.50
+        Total: 29.83
+        */
+
+        if(o.getOrderLines().size() == 0) {
+            System.out.println(ORDER_EMPTY);
+            return;
+        }
+
+        for(OrderLine l : o.getOrderLines()) {
+            double lineTotal = l.getTotalTax() + l.getTotalSum();
+            System.out.printf(l.getQty() + " " + l.getItem().getName() + ": %.2f\n", lineTotal);
+        }
+
+        System.out.format("Sales taxes: %.2f\n", o.getTaxes());
+        System.out.format("Total: %.2f\n", o.getTotal());
     }
 
     public void run() {
@@ -78,21 +97,31 @@ public class Application {
                     System.out.println(HELP);
                     break;
 
+                case "show":
+                    renderOrder(order);
+                    break;
+
                 case "clear":
-                    order = new Order();
-                    System.out.println(CLEAR);
+                    order.clear();
+                    System.out.println(ORDER_CLEAR);
                     break;
 
                 default:
-                    try {
-                        InputResult result = InputEvaluator.parseInputString(input);
-                        itemFactory.generateItem(result.getName(), result.getPrice());
 
-                    } catch (InputException | ItemFactoryException e) {
-                        System.out.println(INPUT_ERROR);
+                    if(input.trim().length() > 0) {
+
+                        try {
+                            InputResult result = InputEvaluator.parseInputString(input);
+                            Item item = itemFactory.generateItem(result.getName(), result.getPrice());
+                            order.add(new OrderLine(result.getQuantity(), item));
+                            System.out.println(ORDER_ADD);
+
+                        } catch (InputException | ItemFactoryException e) {
+                            System.out.println(INPUT_ERROR);
+                        }
+
+                        break;
                     }
-
-                    break;
             }
 
             System.out.print("\n" + CURSOR + " ");

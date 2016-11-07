@@ -1,11 +1,14 @@
 package com.app.rdc.taxation.cart;
 
 import com.app.rdc.taxation.item.objects.Taxation;
+import lombok.Getter;
 
 import java.util.LinkedList;
 import java.util.List;
 
 public class Order {
+
+    @Getter
     private List<OrderLine> orderLines;
 
     public Order() {
@@ -35,7 +38,7 @@ public class Order {
      */
 
     public double getTaxes() {
-        return Taxation.roundTaxation(orderLines.stream().mapToDouble(o -> o.getTotalTax() * o.getQty()).sum());
+        return Taxation.roundTaxation(orderLines.stream().mapToDouble(o -> o.getTotalTax()).sum());
     }
 
     /**
@@ -44,6 +47,6 @@ public class Order {
      */
 
     public double getTotal() {
-        return Taxation.roundToSecondDecimal(getTaxes() + orderLines.stream().mapToDouble(o -> o.getItem().getPrice() * o.getQty()).sum());
+        return Taxation.roundToSecondDecimal(getTaxes() + orderLines.stream().mapToDouble(o -> o.getTotalSum()).sum());
     }
 }

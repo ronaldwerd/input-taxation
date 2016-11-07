@@ -21,4 +21,12 @@ public class OrderLine {
     public double getTotalTax() {
         return qty * item.getTax();
     }
+
+    /**
+     * Calculates the qty * the item price
+     * @return qty * item price
+     */
+    public double getTotalSum() {
+        return qty * item.getPrice();
+    }
 }

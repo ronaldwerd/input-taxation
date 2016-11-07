@@ -18,6 +18,9 @@ public class OrderTests {
     private Item food;
     private Item computerScreen;
 
+    private Item greenTree;
+    private Item redTree;
+
     @Before
     public void setup() {
 
@@ -52,6 +55,16 @@ public class OrderTests {
         computerScreen = new Generic();
         computerScreen.setName("imported 27 inch ips flat panel");
         computerScreen.setPrice(519.95d);
+
+        //
+
+        redTree = new Generic();
+        redTree.setName("red tree");
+        redTree.setPrice(100.00d);
+
+        greenTree = new Generic();
+        greenTree.setName("green tree");
+        greenTree.setPrice(100.00d);
 
         order = new Order();
     }
@@ -94,5 +107,19 @@ public class OrderTests {
 
         assert(order.getTaxes() == 6.7d);
         assert(order.getTotal() == 74.68d);
+
+        order.clear();
+        assert(order.getTaxes() == 0d);
+        assert(order.getTotal() == 0d);
+
+        /*
+         * Test with multiple quantities
+         */
+
+        order.add(new OrderLine(2, redTree));
+        order.add(new OrderLine(3, greenTree));
+
+        assert(order.getTaxes() == 50d);
+        assert(order.getTotal() == 550d);
     }
 }
