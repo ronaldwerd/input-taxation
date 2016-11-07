@@ -112,8 +112,6 @@ public class Application {
                         } catch (InputException | ItemFactoryException e) {
                             System.out.println(INPUT_ERROR);
                         }
-
-                        break;
                     }
             }
 
