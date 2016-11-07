@@ -76,7 +76,7 @@ public class Application {
 
         System.out.print(CURSOR + " ");
 
-        applicationLoop: for(;;) {
+        applicationLoop: while(true) {
 
             String input = userInput.nextLine().trim();
 
