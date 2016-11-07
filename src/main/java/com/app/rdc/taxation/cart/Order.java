@@ -9,11 +9,7 @@ import java.util.List;
 public class Order {
 
     @Getter
-    private List<OrderLine> orderLines;
-
-    public Order() {
-        orderLines = new LinkedList<>();
-    }
+    private final List<OrderLine> orderLines = new LinkedList<>();
 
     /**
      * Removes all of the order lines within the order
