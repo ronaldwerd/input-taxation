@@ -18,8 +18,6 @@ public class ItemFactory {
 
     private static final Pattern lettersAndSpaces = Pattern.compile("[a-z\\s]*", Pattern.CASE_INSENSITIVE);
     private static final String medicalWords[] = {"pills", "medical"};
-    private static final String foodWords[] = {"chocolates"};
-    private static final String bookWords[] = {"books"};
 
     private static final SimpleStemmer stemmer = new SimpleStemmer();
 
@@ -127,6 +125,8 @@ public class ItemFactory {
 
         if(hasNoun == false)
             throw new ItemFactoryException(ItemFactoryException.NO_NOUNS);
+
+        //TODO: scan for medical words
 
         if(item == null)
             item = new Generic();
