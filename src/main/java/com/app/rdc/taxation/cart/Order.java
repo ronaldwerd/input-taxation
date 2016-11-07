@@ -38,7 +38,7 @@ public class Order {
      */
 
     public double getTaxes() {
-        return Taxation.roundTaxation(orderLines.stream().mapToDouble(o -> o.getTotalTax()).sum());
+        return Taxation.roundTaxation(orderLines.stream().mapToDouble(OrderLine::getTotalTax).sum());
     }
 
     /**
@@ -47,6 +47,6 @@ public class Order {
      */
 
     public double getTotal() {
-        return Taxation.roundToSecondDecimal(getTaxes() + orderLines.stream().mapToDouble(o -> o.getTotalSum()).sum());
+        return Taxation.roundToSecondDecimal(getTaxes() + orderLines.stream().mapToDouble(OrderLine::getTotalSum).sum());
     }
 }
